@@ -149,20 +149,6 @@ tr.leader .pos{
   color:#ffffff;
 }
 
-/* RESPONSIVE */
-
-@media (max-width:900px){
-
-table{
-font-size:12px;
-}
-
-thead th{
-font-size:10px;
-}
-
-}
-
 </style>
 </head>
 
@@ -182,8 +168,8 @@ font-size:10px;
 <th>NUM</th>
 <th class="left">PILOTO</th>
 <th class="left">EQUIPE</th>
-<th>GAP</th>
 <th>BEST</th>
+<th>GAP</th>
 </tr>
 </thead>
 
@@ -237,9 +223,9 @@ tbody.innerHTML += `
 
 <td class="left">${d.team}</td>
 
-<td class="gap">${gap}</td>
-
 <td class="best">${d.best}</td>
+
+<td class="gap">${gap}</td>
 
 </tr>
 

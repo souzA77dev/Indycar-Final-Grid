@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Live Timing IndyCar</title>
+
+<style>
+:root{
+
+  --bg-main:#0b0f16;
+  --bg-header:#111826;
+
+  --row-a:#121826;
+  --row-b:#0f1420;
+
+  --red:#ff2e2e;
+  --red-soft:#ff4a4a;
+
+  --white:#f4f6fa;
+  --muted:#8f9bb3;
+
+  --leader:#1a2235;
+
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:linear-gradient(180deg,#111827,#0b0f16);
+  color:var(--white);
+  font-family:"Segoe UI",Arial,sans-serif;
+  font-size:13px;
+}
+
+/* HEADER */
+
+header{
+  padding:14px 20px;
+  background:linear-gradient(90deg,#1a2235,#0c111a);
+  border-bottom:2px solid var(--red);
+  box-shadow:0 6px 16px rgba(0,0,0,.6);
+}
+
+header h1{
+  margin:0;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+/* LAYOUT */
+
+.wrapper{
+  padding:18px;
+}
+
+/* TABLE */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:linear-gradient(180deg,#0f1420,#0b0f16);
+  border-radius:6px;
+  overflow:hidden;
+
+  box-shadow:
+  0 10px 28px rgba(0,0,0,.7);
+}
+
+/* HEADER */
+
+thead th{
+
+  padding:10px 8px;
+
+  font-size:11px;
+  font-weight:600;
+
+  color:var(--red-soft);
+
+  text-transform:uppercase;
+  letter-spacing:1.4px;
+
+  border-bottom:2px solid #1d263a;
+}
+
+/* ROWS */
+
+tbody tr{
+  background:var(--row-a);
+  transition:all .2s ease;
+}
+
+tbody tr:nth-child(even){
+  background:var(--row-b);
+}
+
+tbody tr:hover{
+  background:#1a2235;
+}
+
+/* CELLS */
+
+td{
+  padding:9px 8px;
+  text-align:center;
+  border-bottom:1px solid #0d1320;
+}
+
+td.left{
+  text-align:left;
+}
+
+/* POS */
+
+.pos{
+  color:var(--red-soft);
+  font-weight:700;
+}
+
+/* GAP */
+
+.gap{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* BEST */
+
+.best{
+  font-weight:700;
+  letter-spacing:.4px;
+}
+
+/* LEADER */
+
+tr.leader{
+
+  background:linear-gradient(90deg,#1f2a44,#0b0f16);
+
+  box-shadow:
+  inset 4px 0 0 var(--red),
+  inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+tr.leader .pos{
+  color:#ffffff;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:900px){
+
+table{
+font-size:12px;
+}
+
+thead th{
+font-size:10px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Live Timing · Qualifying · IndyCar</h1>
+</header>
+
+<div class="wrapper">
+
+<table>
+
+<thead>
+<tr>
+<th>POS</th>
+<th>NUM</th>
+<th class="left">PILOTO</th>
+<th class="left">EQUIPE</th>
+<th class="left">CARRO</th>
+<th>GAP</th>
+<th>BEST</th>
+</tr>
+</thead>
+
+<tbody id="grid"></tbody>
+
+</table>
+
+</div>
+
+<script>
+
+const drivers = [
+
+{ num:"7",  driver:"Tiago Souza", team:"Oracle Garage 43 VF Motorsport", car:"Dallara DW12", best:"46.781" },
+{ num:"6",  driver:"Enty", team:"Oracle Garage 43 VF Motorsport", car:"Dallara DW12", best:"47.140" },
+{ num:"76", driver:"Nikolas", team:"Nyx Racing", car:"Dallara DW12", best:"47.165" },
+{ num:"51", driver:"Theo Torres", team:"Nyx Racing", car:"Dallara DW12", best:"46.600" },
+{ num:"30", driver:"Mateus Lucas", team:"TLZ Sports", car:"Dallara DW12", best:"46.832" },
+{ num:"37", driver:"Vitor Borges", team:"Shadow Land Crew", car:"Dallara DW12", best:"46.648" },
+{ num:"54", driver:"Marlon", team:"Spark Racing", car:"Dallara DW12", best:"46.505" },
+{ num:"13", driver:"Luiz Costa", team:"Korecingue Racing Division", car:"Dallara DW12", best:"47.682" }
+
+];
+
+function toSeconds(t){
+return parseFloat(t);
+}
+
+function renderTable(){
+
+const tbody = document.getElementById("grid");
+tbody.innerHTML = "";
+
+drivers.sort((a,b)=>toSeconds(a.best)-toSeconds(b.best));
+
+const leaderTime = toSeconds(drivers[0].best);
+
+drivers.forEach((d,i)=>{
+
+const gap = i===0 ? "—" : "+"+(toSeconds(d.best)-leaderTime).toFixed(3);
+
+tbody.innerHTML += `
+
+<tr class="${i===0?"leader":""}">
+
+<td class="pos">${i+1}</td>
+
+<td>${d.num}</td>
+
+<td class="left">${d.driver}</td>
+
+<td class="left">${d.team}</td>
+
+<td class="left">${d.car}</td>
+
+<td class="gap">${gap}</td>
+
+<td class="best">${d.best}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+renderTable();
+
+</script>
+
+</body>
+</html>

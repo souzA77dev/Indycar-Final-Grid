@@ -220,48 +220,33 @@ const drivers = [
 ];
 
 function toSeconds(t){
-return parseFloat(t);
+  return parseFloat(t);
 }
 
 function renderTable(){
+  const tbody = document.getElementById("grid");
+  tbody.innerHTML = "";
 
-const tbody = document.getElementById("grid");
-tbody.innerHTML = "";
+  drivers.sort((a,b)=>toSeconds(a.best)-toSeconds(b.best));
+  const leaderTime = toSeconds(drivers[0].best);
 
-drivers.sort((a,b)=>toSeconds(a.best)-toSeconds(b.best));
+  drivers.forEach((d,i)=>{
+    const gap = i===0 ? "—" : "+"+(toSeconds(d.best)-leaderTime).toFixed(3);
 
-const leaderTime = toSeconds(drivers[0].best);
-
-drivers.forEach((d,i)=>{
-
-const gap = i===0 ? "—" : "+"+(toSeconds(d.best)-leaderTime).toFixed(3);
-
-tbody.innerHTML += `
-
-<tr class="${i===0?"leader":""}">
-
-<td class="pos">${i+1}</td>
-
-<td>${d.num}</td>
-
-<td class="left">${d.driver}</td>
-
-<td class="left">${d.team}</td>
-
-<td class="best">${d.best}</td>
-
-<td class="gap">${gap}</td>
-
-</tr>
-
-`;
-
-});
-
+    tbody.innerHTML += `
+      <tr class="${i===0?"leader":""}">
+        <td class="pos">${i+1}</td>
+        <td>${d.num}</td>
+        <td class="left">${d.driver}</td>
+        <td class="left">${d.team}</td>
+        <td class="best">${d.best}</td>
+        <td class="gap">${gap}</td>
+      </tr>
+    `;
+  });
 }
 
 renderTable();
-
 </script>
 
 </body>

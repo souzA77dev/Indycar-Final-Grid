@@ -19,8 +19,6 @@
   --white:#f4f6fa;
   --muted:#8f9bb3;
 
-  --leader:#1a2235;
-
 }
 
 *{
@@ -184,7 +182,6 @@ font-size:10px;
 <th>NUM</th>
 <th class="left">PILOTO</th>
 <th class="left">EQUIPE</th>
-<th class="left">CARRO</th>
 <th>GAP</th>
 <th>BEST</th>
 </tr>
@@ -200,14 +197,14 @@ font-size:10px;
 
 const drivers = [
 
-{ num:"7",  driver:"Tiago Souza", team:"Oracle Garage 43 VF Motorsport", car:"Dallara DW12", best:"46.781" },
-{ num:"6",  driver:"Enty", team:"Oracle Garage 43 VF Motorsport", car:"Dallara DW12", best:"47.140" },
-{ num:"76", driver:"Nikolas", team:"Nyx Racing", car:"Dallara DW12", best:"47.165" },
-{ num:"51", driver:"Theo Torres", team:"Nyx Racing", car:"Dallara DW12", best:"46.600" },
-{ num:"30", driver:"Mateus Lucas", team:"TLZ Sports", car:"Dallara DW12", best:"46.832" },
-{ num:"37", driver:"Vitor Borges", team:"Shadow Land Crew", car:"Dallara DW12", best:"46.648" },
-{ num:"54", driver:"Marlon", team:"Spark Racing", car:"Dallara DW12", best:"46.505" },
-{ num:"13", driver:"Luiz Costa", team:"Korecingue Racing Division", car:"Dallara DW12", best:"47.682" }
+{ num:"7",  driver:"Tiago Souza", team:"Oracle Garage 43 VF Motorsport", best:"46.781" },
+{ num:"6",  driver:"Enty", team:"Oracle Garage 43 VF Motorsport", best:"47.140" },
+{ num:"76", driver:"Nikolas", team:"Nyx Racing", best:"47.165" },
+{ num:"51", driver:"Theo Torres", team:"Nyx Racing", best:"46.600" },
+{ num:"30", driver:"Mateus Lucas", team:"TLZ Sports", best:"46.832" },
+{ num:"37", driver:"Vitor Borges", team:"Shadow Land Crew", best:"46.648" },
+{ num:"54", driver:"Marlon", team:"Spark Racing", best:"46.505" },
+{ num:"13", driver:"Luiz Costa", team:"Korecingue Racing Division", best:"47.682" }
 
 ];
 
@@ -239,8 +236,6 @@ tbody.innerHTML += `
 <td class="left">${d.driver}</td>
 
 <td class="left">${d.team}</td>
-
-<td class="left">${d.car}</td>
 
 <td class="gap">${gap}</td>
 

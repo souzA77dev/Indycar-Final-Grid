@@ -192,6 +192,8 @@ const drivers = [
 
 function timeToSeconds(time){
 
+if(time === "NO TIME") return Infinity;
+
 const parts = time.split(":");
 
 const minutes = parseInt(parts[0]);
@@ -212,28 +214,49 @@ function renderTable(){
 const tbody = document.getElementById("grid");
 tbody.innerHTML = "";
 
+// ordenar tempos
 drivers.sort((a,b)=>timeToSeconds(a.best)-timeToSeconds(b.best));
 
-const leaderTime = timeToSeconds(drivers[0].best);
+const leader = drivers.find(d => d.best !== "NO TIME");
+const leaderTime = leader ? timeToSeconds(leader.best) : null;
 
 drivers.forEach((d,i)=>{
 
-const gap = i===0 ? "—" : formatGap(timeToSeconds(d.best)-leaderTime);
+let gap = "";
 
-    tbody.innerHTML += `
-      <tr class="${i===0?"leader":""}">
-        <td class="pos">${i+1}</td>
-        <td>${d.num}</td>
-        <td class="left">${d.driver}</td>
-        <td class="left">${d.team}</td>
-        <td class="best">${d.best}</td>
-        <td class="gap">${gap}</td>
-      </tr>
-    `;
-  });
+if(d.best === "NO TIME"){
+
+gap = "—";
+
+}else if(i === 0){
+
+gap = "—";
+
+}else{
+
+gap = formatGap(timeToSeconds(d.best)-leaderTime);
+
+}
+
+tbody.innerHTML += `
+
+<tr class="${i===0?"leader":""}">
+<td class="pos">${i+1}</td>
+<td>${d.num}</td>
+<td class="left">${d.driver}</td>
+<td class="left">${d.team}</td>
+<td class="best">${d.best}</td>
+<td class="gap">${gap}</td>
+</tr>
+
+`;
+
+});
+
 }
 
 renderTable();
+
 </script>
 
 </body>
